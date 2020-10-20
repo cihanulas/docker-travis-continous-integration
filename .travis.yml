@@ -8,15 +8,15 @@ before_install:
 script:
   - docker run -e CI=true cihanulas/react-test npm test
 
-  after_success:
-    - docker build -t cihanulas/multi-client ./client
-    - docker build -t cihanulas/multi-nginx ./nginx
-    - docker build -t cihanulas/multi-server ./server
-    - docker build -t cihanulas/multi-worker ./worker
-    # Login to the docker CLI
-    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
-    # Take images and push to docker hub.
-    - docker push cihanulas/multi-client
-    - docker push cihanulas/multi-nginx
-    - docker push cihanulas/multi-server
-    - docker push cihanulas/multi-worker
+after_success:
+  - docker build -t cihanulas/multi-client ./client
+  - docker build -t cihanulas/multi-nginx ./nginx
+  - docker build -t cihanulas/multi-server ./server
+  - docker build -t cihanulas/multi-worker ./worker
+  # Login to the docker CLI
+  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
+  # Take images and push to docker hub.
+  - docker push cihanulas/multi-client
+  - docker push cihanulas/multi-nginx
+  - docker push cihanulas/multi-server
+  - docker push cihanulas/multi-worker
