@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t cihanulas/react-test -f /.client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true cihanulas/react-test npm test
+
+  after_success:
+    - docker build -t cihanulas/multi-client ./client
+    - docker build -t cihanulas/multi-nginx ./nginx
+    - docker build -t cihanulas/multi-server ./server
+    - docker build -t cihanulas/multi-worker ./worker

@@ -1,0 +1,1 @@
+docker build -f Dockerfile.dev -t cihanulas/complex-worker .

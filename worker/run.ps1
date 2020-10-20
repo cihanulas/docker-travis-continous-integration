@@ -1,0 +1,1 @@
+docker run -p 5000:3000 cihanulas/complex-worker
